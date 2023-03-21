@@ -11,8 +11,8 @@ export const WEBTABLES = {
     rowNames: [ 
         "First Name",
         "Last Name",
-        "Age",
         "Email",
+        "Age",
         "Salary",
         "Department"
     ]
@@ -29,6 +29,7 @@ export const WEBTABLES = {
     };
 
 
+
     export const LOCATORS = {
         mainHeader: '.main-header',
         tabHeader: '.rt-thead',
@@ -36,6 +37,8 @@ export const WEBTABLES = {
         webTable: '.rt-table',
         tabBody: '.rt-tbody',
         tabRows: '.rt-tr',
+        tabRows_2: '.rt-tr-group',
+        lastCell: 'div:nth-child(7)',
         buttonAdd: '#addNewRecordButton',
         modalWindow: '.modal-content',
         nameRow: '.form-label',
@@ -48,12 +51,14 @@ export const WEBTABLES = {
         inputDepartment: '#department',
         buttonSubmit: '#submit',
         btnDeleteRecord_1: '#delete-record-1',
+        formGroup:['#firstName', '#lastName', '#age', '#userEmail', '#salary', '#department', ''],
         btnDeleteRecords: {
         '1': '#delete-record-1',
         '2': '#delete-record-2',
         '3': '#delete-record-3',
         '4': '#delete-record-4',
         },
+        cellTab: '.rt-td',
         searchBox: '#searchBox',
         btnSearch: '#basic-addon2'
     
