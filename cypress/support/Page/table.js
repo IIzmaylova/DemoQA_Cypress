@@ -1,6 +1,5 @@
 import { baseUrl } from '../e2e';
-import { LOCATORS } from './webtalesLocators';
-import { DATA} from './webtalesLocators';
+import { DATA, WEBTABLES, LOCATORS} from './webtalesLocators';
 
 
 
@@ -12,13 +11,14 @@ class Table {
     }
 
     saveRecordsInList(array) {
-        // var Records = []
+        
         cy.get(LOCATORS.tabBody).find(LOCATORS.tabRows)
         .each(($span, i) => {
         array[i] = ($span.text())   // сохраняем в словарь каждую запись
         })
         return array
     }
+
 
     webtableIsOpen() {
         return cy.get(LOCATORS.webTable).should('be.exist')
@@ -68,45 +68,62 @@ class Table {
     }
 
 
-    fillFieldFirstname() {
+    fillFieldFirstname(firstname = DATA.firstName) {
         cy.get(LOCATORS.inputFirstName).clear()
-        cy.get(LOCATORS.inputFirstName).type(DATA.firstName) 
+        cy.get(LOCATORS.inputFirstName).type(firstname) 
     }
 
-    fillFieldLastname() {
+    fillFieldLastname(lastname = DATA.lastName) {
         cy.get(LOCATORS.inputLastName).clear()
-        cy.get(LOCATORS.inputLastName).type(DATA.lastName)  
+        cy.get(LOCATORS.inputLastName).type(lastname)  
     }
 
-    fillFieldEmail() {
+    fillFieldEmail(email = DATA.userEmail) {
         cy.get(LOCATORS.inputUserEmail).clear()
-        cy.get(LOCATORS.inputUserEmail).type(DATA.userEmail)  
+        cy.get(LOCATORS.inputUserEmail).type(email)  
     }
 
-    fillFieldAge() {
+    fillFieldAge(age = DATA.dataAge) {
         cy.get(LOCATORS.inputAge).clear()
-        cy.get(LOCATORS.inputAge).type(DATA.dataAge)   
+        cy.get(LOCATORS.inputAge).type(age)   
     }
 
-    fillFieldSalary() {
+    fillFieldSalary(salary = DATA.dataSalary) {
         cy.get(LOCATORS.inputSalary).clear()
-        cy.get(LOCATORS.inputSalary).type(DATA.dataSalary)   
+        cy.get(LOCATORS.inputSalary).type(salary)   
     }
 
-    fillFieldDepartment() {
+    fillFieldDepartment(department = DATA.dataDepartment) {
         cy.get(LOCATORS.inputDepartment).clear()
-        cy.get(LOCATORS.inputDepartment).type(DATA.dataDepartment)   
+        cy.get(LOCATORS.inputDepartment).type(department)   
     }
 
 
-    fillForm() {
+    fillForm(firstname, lastname, email, age, salary, department) {
         var wt = new Table()
-        wt.fillFieldFirstname()
-        wt.fillFieldLastname()
-        wt.fillFieldEmail()
-        wt.fillFieldAge()
-        wt.fillFieldSalary()
-        wt.fillFieldDepartment() 
+        wt.fillFieldFirstname(firstname)
+        wt.fillFieldLastname(lastname)
+        wt.fillFieldEmail(email)
+        wt.fillFieldAge(age)
+        wt.fillFieldSalary(salary)
+        wt.fillFieldDepartment(department) 
+    }
+
+
+    getCellWithText(num=1) {
+
+        return cy.get(LOCATORS.tabRows_2 +':nth-child('+num+')').find(LOCATORS.cellTab)
+        .not(LOCATORS.lastCell)    
+    }
+
+
+    makeDoubleRecNum(num) {
+        var wt = new Table()
+        var loc = LOCATORS.formGroup
+        wt.getCellWithText()
+            .each(($span, i) => {
+            wt.fillField(loc[i], $span.text())
+        })  
     }
 
 
